@@ -11,11 +11,11 @@ import { users } from "./users";
 export const workspaceMembers = pgTable("workspace_members", {
   id: serial("id").primaryKey(),
   workspaceId: integer("workspace_id")
-    .references(() => workspaces.id)
-    .notNull(),
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
   userId: integer("user_id")
-    .references(() => users.id)
-    .notNull(),
-  role: varchar("role", { length: 50 }).notNull().default("member"),
+    .notNull()
+    .references(() => users.id),
+  role: varchar("role", { length: 50 }).default("member").notNull(),
   joinedAt: timestamp("joined_at").defaultNow().notNull(),
 });

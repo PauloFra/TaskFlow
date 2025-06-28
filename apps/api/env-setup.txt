@@ -1,0 +1,11 @@
+# Copy the content below to create your .env file in apps/api/.env
+
+# Server Configuration
+PORT=3001
+
+# Database Configuration
+DATABASE_URL=
+
+# JWT Configuration
+JWT_SECRET=your-jwt-secret-key
+ 

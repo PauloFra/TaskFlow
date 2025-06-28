@@ -9,16 +9,70 @@ Backend API for the TaskFlow task management application.
 - PostgreSQL
 - Drizzle ORM
 
-## Getting Started
+## Docker Setup
 
 ### Prerequisites
 
-- Node.js (v16+)
-- PostgreSQL database
+- Docker and Docker Compose installed on your machine
+
+### Starting the Database
+
+To start the PostgreSQL database and pgAdmin:
+
+```bash
+# From the root directory of the project
+docker-compose up -d
+```
+
+This starts:
+
+- PostgreSQL database on port 5432
+- pgAdmin web interface on port 5050
+
+### Database Credentials
+
+- **PostgreSQL**:
+
+  - Host: localhost
+  - Port: 5432
+  - Username: postgres
+  - Password: postgres
+  - Database: taskflow
+
+- **pgAdmin**:
+  - URL: http://localhost:5050
+  - Email: admin@taskflow.com
+  - Password: admin
+
+After accessing pgAdmin, add a new server with the following details:
+
+- Name: TaskFlow
+- Host: postgres (use this hostname instead of localhost within Docker network)
+- Port: 5432
+- Username: postgres
+- Password: postgres
+- Database: taskflow
+
+### Initialize the Database
+
+After starting the Docker services:
+
+```bash
+# From the apps/api directory
+./init-db.sh
+```
+
+This script:
+
+1. Waits for PostgreSQL to be ready
+2. Generates Drizzle migration files
+3. Applies the migrations to the database
+
+## Getting Started
 
 ### Environment Setup
 
-Create a `.env` file in the root directory with the following content:
+Create a `.env` file in the apps/api directory with the following content:
 
 ```
 # Server Configuration
@@ -38,12 +92,6 @@ JWT_REFRESH_EXPIRES_IN=30d
 ```bash
 # Install dependencies
 npm install
-
-# Generate migration files based on your schema
-npm run db:generate
-
-# Push schema changes to the database
-npm run db:push
 ```
 
 ### Development

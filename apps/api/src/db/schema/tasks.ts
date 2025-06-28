@@ -17,12 +17,12 @@ export const tasks = pgTable("tasks", {
   priority: varchar("priority", { length: 50 }).default("medium"),
   dueDate: timestamp("due_date"),
   workspaceId: integer("workspace_id")
-    .references(() => workspaces.id)
-    .notNull(),
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
   assigneeId: integer("assignee_id").references(() => users.id),
   createdById: integer("created_by_id")
-    .references(() => users.id)
-    .notNull(),
+    .notNull()
+    .references(() => users.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

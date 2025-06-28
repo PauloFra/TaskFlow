@@ -6,11 +6,11 @@ export const comments = pgTable("comments", {
   id: serial("id").primaryKey(),
   content: text("content").notNull(),
   taskId: integer("task_id")
-    .references(() => tasks.id)
-    .notNull(),
+    .notNull()
+    .references(() => tasks.id, { onDelete: "cascade" }),
   userId: integer("user_id")
-    .references(() => users.id)
-    .notNull(),
+    .notNull()
+    .references(() => users.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
